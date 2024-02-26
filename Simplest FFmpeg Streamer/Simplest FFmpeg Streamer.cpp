@@ -1,26 +1,26 @@
-// Simplest FFmpeg Streamer.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// Simplest FFmpeg Streamer.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
 /**
-* ×î¼òµ¥µÄ»ùÓÚ FFmpeg µÄÍÆÁ÷Æ÷£¨ÍÆËÍ RTMP£©
+* æœ€ç®€å•çš„åŸºäº FFmpeg çš„æ¨æµå™¨ï¼ˆæ¨é€ RTMPï¼‰
 * Simplest FFmpeg Streamer (Send RTMP)
 *
-* Ô´³ÌĞò£º
-* À×Ïöæè Lei Xiaohua
+* æºç¨‹åºï¼š
+* é›·éœ„éª… Lei Xiaohua
 * leixiaohua1020@126.com
-* ÖĞ¹ú´«Ã½´óÑ§/Êı×ÖµçÊÓ¼¼Êõ
+* ä¸­å›½ä¼ åª’å¤§å­¦/æ•°å­—ç”µè§†æŠ€æœ¯
 * Communication University of China / Digital TV Technology
 * http://blog.csdn.net/leixiaohua1020
 *
-* ĞŞ¸Ä£º
-* ÁõÎÄ³¿ Liu Wenchen
+* ä¿®æ”¹ï¼š
+* åˆ˜æ–‡æ™¨ Liu Wenchen
 * 812288728@qq.com
-* µç×Ó¿Æ¼¼´óÑ§/µç×ÓĞÅÏ¢
+* ç”µå­ç§‘æŠ€å¤§å­¦/ç”µå­ä¿¡æ¯
 * University of Electronic Science and Technology of China / Electronic and Information Science
 * https://blog.csdn.net/ProgramNovice
 *
-* ±¾Àı×ÓÊµÏÖÁËÍÆËÍ±¾µØÊÓÆµÖÁÁ÷Ã½Ìå·şÎñÆ÷£¨ÒÔ RTMP ÎªÀı£©¡£
-* ÊÇÊ¹ÓÃ FFmpeg ½øĞĞÁ÷Ã½ÌåÍÆËÍ×î¼òµ¥µÄ½Ì³Ì¡£
+* æœ¬ä¾‹å­å®ç°äº†æ¨é€æœ¬åœ°è§†é¢‘è‡³æµåª’ä½“æœåŠ¡å™¨ï¼ˆä»¥ RTMP ä¸ºä¾‹ï¼‰ã€‚
+* æ˜¯ä½¿ç”¨ FFmpeg è¿›è¡Œæµåª’ä½“æ¨é€æœ€ç®€å•çš„æ•™ç¨‹ã€‚
 *
 * This example stream local media files to streaming media
 * server (Use RTMP as example).
@@ -32,14 +32,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// ½â¾ö±¨´í£º'fopen': This function or variable may be unsafe.Consider using fopen_s instead.
+// è§£å†³æŠ¥é”™ï¼š'fopen': This function or variable may be unsafe.Consider using fopen_s instead.
 #pragma warning(disable:4996)
 
-// ½â¾ö±¨´í£ºÎŞ·¨½âÎöµÄÍâ²¿·ûºÅ __imp__fprintf£¬¸Ã·ûºÅÔÚº¯Êı _ShowError ÖĞ±»ÒıÓÃ
+// è§£å†³æŠ¥é”™ï¼šæ— æ³•è§£æçš„å¤–éƒ¨ç¬¦å· __imp__fprintfï¼Œè¯¥ç¬¦å·åœ¨å‡½æ•° _ShowError ä¸­è¢«å¼•ç”¨
 #pragma comment(lib, "legacy_stdio_definitions.lib")
 extern "C"
 {
-	// ½â¾ö±¨´í£ºÎŞ·¨½âÎöµÄÍâ²¿·ûºÅ __imp____iob_func£¬¸Ã·ûºÅÔÚº¯Êı _ShowError ÖĞ±»ÒıÓÃ
+	// è§£å†³æŠ¥é”™ï¼šæ— æ³•è§£æçš„å¤–éƒ¨ç¬¦å· __imp____iob_funcï¼Œè¯¥ç¬¦å·åœ¨å‡½æ•° _ShowError ä¸­è¢«å¼•ç”¨
 	FILE __iob_func[3] = { *stdin, *stdout, *stderr };
 }
 
@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
 	// Init network
 	avformat_network_init();
 
-	// ÊäÈë
+	// è¾“å…¥
 	ret = avformat_open_input(&ifmt_ctx, in_filename, 0, 0);
 	if (ret < 0)
 	{
@@ -112,10 +112,11 @@ int main(int argc, char* argv[])
 
 	// Print some input information
 	av_dump_format(ifmt_ctx, 0, in_filename, 0);
-
-	avformat_alloc_output_context2(&ofmt_ctx, NULL, "flv", out_filename); //RTMP
-																		  // avformat_alloc_output_context2(&ofmt_ctx, NULL, "mpegts", out_filename); //UDP
-
+	// RTMP
+	avformat_alloc_output_context2(&ofmt_ctx, NULL, "flv", out_filename);
+	// UDP
+	// avformat_alloc_output_context2(&ofmt_ctx, NULL, "mpegts", out_filename); 
+	
 	if (ofmt_ctx == NULL)
 	{
 		printf("Could not create output context.\n");
@@ -125,7 +126,7 @@ int main(int argc, char* argv[])
 	ofmt = ofmt_ctx->oformat;
 	for (unsigned int i = 0; i < ifmt_ctx->nb_streams; i++)
 	{
-		// ¸ù¾İÊäÈëÁ÷´´½¨Êä³öÁ÷£¨Create output AVStream according to input AVStream£©
+		// æ ¹æ®è¾“å…¥æµåˆ›å»ºè¾“å‡ºæµï¼ˆCreate output AVStream according to input AVStreamï¼‰
 		AVStream *in_stream = ifmt_ctx->streams[i];
 		AVStream *out_stream = avformat_new_stream(ofmt_ctx, in_stream->codec->codec);
 		if (out_stream == NULL)
@@ -135,7 +136,7 @@ int main(int argc, char* argv[])
 			goto end;
 		}
 
-		// ¸´ÖÆ AVCodecContext µÄÉèÖÃ£¨Copy the settings of AVCodecContext£©
+		// å¤åˆ¶ AVCodecContext çš„è®¾ç½®ï¼ˆCopy the settings of AVCodecContextï¼‰
 		ret = avcodec_copy_context(out_stream->codec, in_stream->codec);
 		if (ret < 0)
 		{
@@ -175,13 +176,13 @@ int main(int argc, char* argv[])
 	{
 		AVStream *in_stream, *out_stream;
 
-		// »ñÈ¡Ò»¸ö AVPacket
+		// è·å–ä¸€ä¸ª AVPacket
 		ret = av_read_frame(ifmt_ctx, &pkt);
 		if (ret < 0)
 		{
 			break;
 		}
-		// FIX£ºNo PTS (Example: Raw H.264)
+		// FIXï¼šNo PTS (Example: Raw H.264)
 		// Simple Write PTS
 		if (pkt.pts == AV_NOPTS_VALUE)
 		{
@@ -209,7 +210,7 @@ int main(int argc, char* argv[])
 		in_stream = ifmt_ctx->streams[pkt.stream_index];
 		out_stream = ofmt_ctx->streams[pkt.stream_index];
 		// copy packet
-		// ×ª»» PTS/DTS£¨Convert PTS/DTS£©
+		// è½¬æ¢ PTS/DTSï¼ˆConvert PTS/DTSï¼‰
 		pkt.pts = av_rescale_q_rnd(pkt.pts, in_stream->time_base, out_stream->time_base,
 			(AVRounding)(AV_ROUND_NEAR_INF | AV_ROUND_PASS_MINMAX));
 		pkt.dts = av_rescale_q_rnd(pkt.dts, in_stream->time_base, out_stream->time_base,
